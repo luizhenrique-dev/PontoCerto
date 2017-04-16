@@ -7,8 +7,10 @@ package br.eti.sw.pontocerto.negocio;
 
 import br.eti.sw.pontocerto.dao.SalarioDAO;
 import br.eti.sw.pontocerto.entidade.Salario;
+import br.eti.sw.pontocerto.entidade.Usuario;
 import br.eti.sw.pontocerto.util.DAOFactory;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,8 +32,10 @@ public class SalarioRN {
     public void salvar(Salario salario) {
         Integer codigo = salario.getId();
         if (codigo == null || codigo == 0) {
+            obtemValoresAliquitas(salario);
             this.salarioDAO.salvar(salario);
         } else {
+            obtemValoresAliquitas(salario);
             this.salarioDAO.atualizar(salario);
         }
     }
@@ -43,5 +47,16 @@ public class SalarioRN {
     public List<Salario> listar() {
         List<Salario> feedbacksOrdenadas = new ArrayList<Salario>(this.salarioDAO.listar());
         return feedbacksOrdenadas;
+    }
+
+    private void obtemValoresAliquitas(Salario salario) {
+        BigDecimal aliquotaINSS = salario.getImpostoINSS();
+        BigDecimal aliquotaIRRF = salario.getImpostoIRRF();
+        salario.setImpostoINSS(aliquotaINSS);
+        salario.setImpostoIRRF(aliquotaIRRF);
+    }
+
+    public Salario buscarSalarioPorUsuario(Usuario usuario) {
+        return this.salarioDAO.buscarSalarioPorUsuario(usuario);
     }
 }

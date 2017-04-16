@@ -118,6 +118,31 @@ public class UsuarioBean {
         return this.lista;
     }
 
+    public void verificaUnicidadeEmail() {
+        UsuarioRN usuarioRN = new UsuarioRN();
+        Usuario usuarioExistente = usuarioRN.buscaPorEmail(usuario.getEmail());
+        if (usuarioExistente != null) {
+            FacesContext.getCurrentInstance().addMessage("email", new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Já existe um usuário cadastrado com esse e-mail!"));
+        }
+    }
+
+    public boolean isAdministrador() {
+        UsuarioRN usuarioRN = new UsuarioRN();
+        Usuario user = usuarioRN.carregar(this.usuario.getId());
+        if (user.getPermissao().contains("ROLE_ADMINISTRADOR"))
+            return true;
+
+        return false;
+    }
+
+    public void verificaUnicidadeLogin() {
+        UsuarioRN usuarioRN = new UsuarioRN();
+        Usuario usuarioExistente = usuarioRN.buscaPorLogin(usuario.getLogin());
+        if (usuarioExistente != null) {
+            FacesContext.getCurrentInstance().addMessage("login", new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Já existe um usuário cadastrado com esse login!"));
+        }
+    }
+
     public Usuario getUsuario() {
         return usuario;
     }

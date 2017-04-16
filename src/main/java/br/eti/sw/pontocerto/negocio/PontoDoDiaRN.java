@@ -7,9 +7,11 @@ package br.eti.sw.pontocerto.negocio;
 
 import br.eti.sw.pontocerto.dao.PontoDoDiaDAO;
 import br.eti.sw.pontocerto.entidade.PontoDoDia;
+import br.eti.sw.pontocerto.entidade.Usuario;
 import br.eti.sw.pontocerto.util.DAOFactory;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -30,6 +32,7 @@ public class PontoDoDiaRN {
     public void salvar(PontoDoDia pontoDoDia) {
         Integer codigo = pontoDoDia.getId();
         if (codigo == null || codigo == 0) {
+            pontoDoDia.setDataRealizacao(Calendar.getInstance().getTime());
             this.pontoDoDiaDAO.salvar(pontoDoDia);
         } else {
             this.pontoDoDiaDAO.atualizar(pontoDoDia);
@@ -40,8 +43,12 @@ public class PontoDoDiaRN {
         this.pontoDoDiaDAO.excluir(pontoDoDia);
     }
 
-    public List<PontoDoDia> listar() {
-        List<PontoDoDia> feedbacksOrdenadas = new ArrayList<PontoDoDia>(this.pontoDoDiaDAO.listar());
-        return feedbacksOrdenadas;
+    public List<PontoDoDia> listar(Usuario usuario) {
+        List<PontoDoDia> pontosDoDia = new ArrayList<PontoDoDia>(this.pontoDoDiaDAO.listar(usuario));
+        return pontosDoDia;
+    }
+
+    public PontoDoDia buscarPontoDoDia(Usuario usuario) {
+        return this.pontoDoDiaDAO.buscarPontoDoDia(Calendar.getInstance().getTime(), usuario);
     }
 }

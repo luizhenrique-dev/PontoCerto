@@ -17,6 +17,10 @@ import java.math.BigDecimal;
 public class Salario implements Serializable {
 
     private static final long serialVersionUID = 5434514464269156251L;
+    private static final BigDecimal ALIQUOTA_INSS_11 = BigDecimal.valueOf(0.11);
+    private static final BigDecimal ALIQUOTA_INSS_9 = BigDecimal.valueOf(0.09);
+    private static final BigDecimal ALIQUOTA_IRRF_15 = BigDecimal.valueOf(0.15);
+    private static final BigDecimal ALIQUOTA_IRRF_22 = BigDecimal.valueOf(0.225);
 
     @Id
     @GeneratedValue
@@ -26,17 +30,17 @@ public class Salario implements Serializable {
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
-    @Column(name = "salario_base")
-    private BigDecimal salarioBase;
+    @Column(name = "salario_base", nullable = false)
+    private BigDecimal salarioBase = BigDecimal.ZERO;
 
     @Column(name = "porcentagem_irrf")
-    private int impostoIRRF;
+    private BigDecimal impostoIRRF;
 
-    @Column(name ="porcentagem_inss")
-    private int impostoINSS;
+    @Column(name = "porcentagem_inss")
+    private BigDecimal impostoINSS;
 
     @Column(name = "outros_descontos")
-    private BigDecimal outrosDescontos;
+    private BigDecimal outrosDescontos = BigDecimal.ZERO;
 
     @Column(name = "vencimento_adicional")
     private BigDecimal vencimentoAdicional;
@@ -65,19 +69,27 @@ public class Salario implements Serializable {
         this.salarioBase = salarioBase;
     }
 
-    public int getImpostoIRRF() {
-        return impostoIRRF;
+    public BigDecimal getImpostoIRRF() {
+        if ((this.salarioBase.subtract(outrosDescontos)).compareTo(new BigDecimal("3751.05")) > 1) {
+            return Salario.ALIQUOTA_IRRF_22;
+        } else {
+            return Salario.ALIQUOTA_IRRF_15;
+        }
     }
 
-    public void setImpostoIRRF(int impostoIRRF) {
+    public void setImpostoIRRF(BigDecimal impostoIRRF) {
         this.impostoIRRF = impostoIRRF;
     }
 
-    public int getImpostoINSS() {
-        return impostoINSS;
+    public BigDecimal getImpostoINSS() {
+        if ((this.salarioBase.subtract(outrosDescontos)).compareTo(new BigDecimal("2765.66")) > 1) {
+            return Salario.ALIQUOTA_INSS_11;
+        } else {
+            return Salario.ALIQUOTA_INSS_9;
+        }
     }
 
-    public void setImpostoINSS(int impostoINSS) {
+    public void setImpostoINSS(BigDecimal impostoINSS) {
         this.impostoINSS = impostoINSS;
     }
 
@@ -121,8 +133,8 @@ public class Salario implements Serializable {
         int result = getId() != null ? getId().hashCode() : 0;
         result = 31 * result + (getUsuario() != null ? getUsuario().hashCode() : 0);
         result = 31 * result + (getSalarioBase() != null ? getSalarioBase().hashCode() : 0);
-        result = 31 * result + getImpostoIRRF();
-        result = 31 * result + getImpostoINSS();
+        result = 31 * result + (getImpostoIRRF() != null ? getImpostoIRRF().hashCode() : 0);
+        result = 31 * result + (getImpostoINSS() != null ? getImpostoINSS().hashCode() : 0);
         result = 31 * result + (getOutrosDescontos() != null ? getOutrosDescontos().hashCode() : 0);
         result = 31 * result + (getVencimentoAdicional() != null ? getVencimentoAdicional().hashCode() : 0);
         return result;

@@ -5,8 +5,6 @@
  */
 package br.eti.sw.pontocerto.entidade;
 
-import br.com.caelum.stella.bean.validation.CPF;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Calendar;
@@ -29,12 +27,6 @@ public class Usuario implements Serializable {
     private String nome;
     @Column(unique = true)
     private String email;
-    @CPF
-    @Column(unique = true)
-
-    /**
-     * Senha de acesso ao sistema.
-     */
     private String senha;
     private boolean ativo;
     @Column(unique = true)

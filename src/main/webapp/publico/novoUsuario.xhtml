@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/templates/principal.xhtml">
+    <ui:define name="titulo">
+       Cadastro de novo usuário
+    </ui:define>
+    <ui:define name="corpo">
+        <h:form>
+            <p:panelGrid id="pnlCadastro" columns="1" layout="grid"
+                         styleClass="ui-panelgrid-blank grid-pad">
+                <p:outputLabel value="Nome:" style="font-weight:bold;" for="nome"/>
+                <p:inputText id="nome" label="Nome" value="#{usuarioBean.usuario.nome}"
+                             maxlength="255"
+                             required="true" requiredMessage="Informe o seu nome.">
+                    <f:validateLength minimum="8" maximum="255"/>
+                </p:inputText>
+                <p:message for="nome"/>
+
+                <p:outputLabel value="E-mail:" style="font-weight:bold;" for="email"/>
+                <p:inputText id="email" value="#{usuarioBean.usuario.email}"
+                             required="true" validatorMessage="E-mail inválido."
+                             requiredMessage="Informe o seu e-mail.">
+                    <f:validateRegex pattern="[a-zA-Z0-9\-\_\.]+@[a-zA-Z0-9\-\_\.]+"/>
+                    <p:ajax event="blur" listener="#{usuarioBean.verificaUnicidadeEmail}"/>
+                </p:inputText>
+                <p:messages for="email" autoUpdate="true" closable="true" showDetail="true"/>
+
+                <p:outputLabel value="Login:" style="font-weight:bold;" for="login"/>
+                <p:inputText id="login" label="Login" value="#{usuarioBean.usuario.login}"
+                             required="true"
+                             requiredMessage="Informe o seu login com pelo menos 5 caracteres.">
+                    <f:validateLength minimum="5" maximum="255"/>
+                    <p:ajax event="blur" listener="#{usuarioBean.verificaUnicidadeLogin}"/>
+                </p:inputText>
+                <p:messages for="login" autoUpdate="true" closable="true" showDetail="true"/>
+
+                <p:outputLabel value="Senha:" style="font-weight:bold;" for="senha"/>
+                <p:password id="senha" label="Senha" value="#{usuarioBean.usuario.senha}"
+                            required="true"
+                            requiredMessage="Informe uma senha com pelo menos 8 caracteres e no máximo 16."
+                            match="confirmarsenha"
+                            feedback="true" promptLabel="Informe uma senha entre 8 e 16 caracteres"
+                            weakLabel="Fraca" goodLabel="Média" strongLabel="Forte"
+                            validatorMessage="As senhas digitadas não são iguais!">
+                    <f:validateLength minimum="8" maximum="16"/>
+                </p:password>
+                <p:message for="senha"/>
+
+                <p:outputLabel value="Confirmar Senha:" style="font-weight:bold;"
+                               for="confirmarsenha"/>
+                <p:password id="confirmarsenha" label="Confirmar Senha" value="#{usuarioBean.confirmaSenha}"
+                            required="true" feedback="true"
+                            promptLabel="Informe uma senha entre 8 e 16 caracteres" weakLabel="Fraca"
+                            goodLabel="Média" strongLabel="Forte" validatorMessage="TEste"
+                            requiredMessage="Digite sua senha novamente">
+                </p:password>
+                <p:message id="msgConfirmarSenha" for="confirmarsenha" showDetail="true" autoUpdate="true"
+                           closable="true"/>
+
+                <p:outputLabel value="Os campos com * são obrigatórios"
+                               style="font-weight:bold;width: 50%"/>
+            </p:panelGrid>
+            <br/>
+            <p:messages id="mensagem" autoUpdate="true" redisplay="true" globalOnly="true" closable="true"
+                        showDetail="true"/>
+
+
+            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"/>
+
+            <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false"
+                      resizable="false" showHeader="false">
+                <p:graphicImage name="images/preloader.gif" library="omega-layout"/>
+            </p:dialog>
+
+            <p:commandButton value="Cadastrar" actionListener="#{usuarioBean.salvar}" icon="ui-icon-disk"
+                             update="pnlCadastro mensagem" style="width: 50%"/>
+
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>

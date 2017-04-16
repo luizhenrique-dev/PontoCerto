@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+>
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Formulários - CIAR/UFG</title>
+        <link rel="shortcut icon" href="/PontoCerto/resources/imagens/favicon.ico" type="image/x-icon"/>
+        <h:outputStylesheet library="css" name="estilo.css" />
+        <h:outputScript library="js" name="locale-primefaces.js" />
+    </h:head>
+    <h:body styleClass="teste">
+        <div align="center">
+            <p:layout styleClass="layoutPrincipal">
+                <p:layoutUnit position="north" size="55" >
+                    <div id="titulo">
+                        <ui:insert name="titulo">Início</ui:insert>
+                    </div>
+                </p:layoutUnit>
+                <p:layoutUnit position="center" size="185" styleClass="ui-top">  
+                    <ui:insert name="corpo" />
+                </p:layoutUnit>
+                <p:layoutUnit position="east" size="195">
+                    <ui:insert name="menu">
+                        <ui:include src="/restrito/menuSistema.xhtml"/>
+                    </ui:insert>
+                </p:layoutUnit>
+                <p:layoutUnit position="south" size="75" styleClass="ui-top">
+                    <ui:insert name="rodape" id="rodape">
+                        <p:outputLabel value="Sistema Ponto Certo"  /><br />
+                        <p:outputLabel value="Desenvolvido por Luiz Henrique Fernandes da Silva"  /><br />
+                        <p:outputLabel value="Todos os direitos reservados"  />
+                    </ui:insert>
+                </p:layoutUnit>
+            </p:layout>  
+        </div>
+    </h:body>
+</html>

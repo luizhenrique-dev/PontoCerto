@@ -7,10 +7,11 @@ package br.eti.sw.pontocerto.dao.impl;
 
 import br.eti.sw.pontocerto.dao.PontoDoDiaDAO;
 import br.eti.sw.pontocerto.entidade.PontoDoDia;
-import org.hibernate.Criteria;
+import br.eti.sw.pontocerto.entidade.Usuario;
+import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.criterion.Order;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -46,9 +47,19 @@ public class PontoDoDiaDAOHibernate implements PontoDoDiaDAO {
     }
 
     @Override
-    public List<PontoDoDia> listar() {
-        Criteria criteria = this.session.createCriteria(PontoDoDia.class);
-        criteria.addOrder(Order.asc("salarioBase"));
-        return criteria.list();
+    public List<PontoDoDia> listar(Usuario usuario) {
+        String hql = "from PontoDoDia ponto where ponto.usuario = :usuario";
+        Query consulta = this.session.createQuery(hql);
+        consulta.setInteger("usuario", usuario.getId());
+        return consulta.list();
+    }
+
+    @Override
+    public PontoDoDia buscarPontoDoDia(Date data, Usuario usuario) {
+        String hql = "from PontoDoDia ponto where ponto.dataRealizacao = :data and ponto.usuario = :usuario";
+        Query consulta = this.session.createQuery(hql);
+        consulta.setDate("data", data);
+        consulta.setInteger("usuario", usuario.getId());
+        return (PontoDoDia) consulta.uniqueResult();
     }
 }

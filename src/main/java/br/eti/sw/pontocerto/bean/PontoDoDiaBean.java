@@ -9,6 +9,7 @@ package br.eti.sw.pontocerto.bean;
 import br.eti.sw.pontocerto.entidade.PontoDoDia;
 import br.eti.sw.pontocerto.entidade.Usuario;
 import br.eti.sw.pontocerto.negocio.PontoDoDiaRN;
+import br.eti.sw.pontocerto.util.ContextoUtil;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -16,6 +17,7 @@ import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -37,22 +39,28 @@ public class PontoDoDiaBean {
     /**
      * Este ? o objeto utilizado para manipular inser??es, edi??es e dele??es.
      */
-    private PontoDoDia pontoDoDia = new PontoDoDia();
-    private Usuario usuarioVinculado;
+    private PontoDoDia pontoDoDia;
     private List<PontoDoDia> lista;
 
     @PostConstruct
     public void init() {
+        PontoDoDiaRN pontoDoDiaRN = new PontoDoDiaRN();
+        ContextoBean contextoBean;
+        contextoBean = ContextoUtil.getContextoBean();
+        Usuario usuario = contextoBean.getUsuarioLogado();
+        pontoDoDia = pontoDoDiaRN.buscarPontoDoDia(usuario);
 
+        if (pontoDoDia == null) {
+            pontoDoDia = new PontoDoDia();
+            this.pontoDoDia.setUsuario(usuario);
+        }
     }
 
-    public String salvar() {
+    public void salvar() {
         PontoDoDiaRN pontoDoDiaRN = new PontoDoDiaRN();
-        this.pontoDoDia.setUsuario(usuarioVinculado);
         pontoDoDiaRN.salvar(this.pontoDoDia);
-        pontoDoDia = new PontoDoDia();
-        enviaMensagemFaces(FacesMessage.SEVERITY_INFO, "Sucesso", "PontoDoDia enviado com sucesso!");
-        return "sucessoFeedback";
+
+        enviaMensagemFaces(FacesMessage.SEVERITY_INFO, "Sucesso", "Ponto marcado com sucesso!");
     }
 
     public void excluir() {
@@ -64,26 +72,44 @@ public class PontoDoDiaBean {
     public List<PontoDoDia> getLista() {
         if (this.lista == null) {
             PontoDoDiaRN pontoDoDiaRN = new PontoDoDiaRN();
-            this.lista = pontoDoDiaRN.listar();
+            ContextoBean contextoBean = ContextoUtil.getContextoBean();
+            Usuario usuario = contextoBean.getUsuarioLogado();
+            this.lista = pontoDoDiaRN.listar(usuario);
 
         }
         return this.lista;
     }
 
-    public PontoDoDia getFeedback() {
+    public void marcarPontoDeEntrada() {
+        this.pontoDoDia.setHoraEntrada(Calendar.getInstance());
+        salvar();
+        this.lista = null;
+    }
+
+    public void marcarPontoDeSaidaAlmoco() {
+        this.pontoDoDia.setHoraSaidaAlmoco(Calendar.getInstance());
+        salvar();
+        this.lista = null;
+    }
+
+    public void marcarPontoDeEntradaTarde() {
+        this.pontoDoDia.setHoraEntradaTarde(Calendar.getInstance());
+        salvar();
+        this.lista = null;
+    }
+
+    public void marcarPontoDeSaida() {
+        this.pontoDoDia.setHoraSaida(Calendar.getInstance());
+        salvar();
+        this.lista = null;
+    }
+
+    public PontoDoDia getPontoDoDia() {
         return pontoDoDia;
     }
 
-    public void setFeedback(PontoDoDia pontoDoDia) {
+    public void setPontoDoDia(PontoDoDia pontoDoDia) {
         this.pontoDoDia = pontoDoDia;
-    }
-
-    public Usuario getUsuarioVinculado() {
-        return usuarioVinculado;
-    }
-
-    public void setWebVinculada(Usuario usuarioVinculado) {
-        this.usuarioVinculado = usuarioVinculado;
     }
 
     /**

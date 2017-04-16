@@ -6,7 +6,9 @@
 package br.eti.sw.pontocerto.dao;
 
 import br.eti.sw.pontocerto.entidade.PontoDoDia;
+import br.eti.sw.pontocerto.entidade.Usuario;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,5 +25,7 @@ public interface PontoDoDiaDAO {
 
     public PontoDoDia carregar(Integer codigo);
 
-    public List<PontoDoDia> listar();
+    public List<PontoDoDia> listar(Usuario usuario);
+
+    public PontoDoDia buscarPontoDoDia(Date data, Usuario usuario);
 }

@@ -7,7 +7,9 @@ package br.eti.sw.pontocerto.dao.impl;
 
 import br.eti.sw.pontocerto.dao.SalarioDAO;
 import br.eti.sw.pontocerto.entidade.Salario;
+import br.eti.sw.pontocerto.entidade.Usuario;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 
@@ -50,5 +52,13 @@ public class SalarioDAOHibernate implements SalarioDAO {
         Criteria criteria = this.session.createCriteria(Salario.class);
         criteria.addOrder(Order.asc("salarioBase"));
         return criteria.list();
+    }
+
+    @Override
+    public Salario buscarSalarioPorUsuario(Usuario usuario) {
+        String hql = "from Salario salario where salario.usuario = :usuario";
+        Query consulta = this.session.createQuery(hql);
+        consulta.setInteger("usuario", usuario.getId());
+        return (Salario) consulta.uniqueResult();
     }
 }

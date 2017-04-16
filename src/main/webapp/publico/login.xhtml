@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition template="/templates/principal.xhtml" >
+        <ui:define name="titulo">
+          Início
+        </ui:define>
+        <ui:define name="corpo">
+            <h:panelGroup rendered="#{!empty param.login_error}">
+                <span style="color:red;"><b> Login ou senha incorretos. </b></span><br />
+                <br />
+                <!--      Motivo: #SPRING_SECURITY_LAST_EXCEPTION.message} -->
+            </h:panelGroup>
+
+            <form id="login" method="post" action="#{request.contextPath}/j_spring_security_check">
+                <table>
+                    <tr><td><b>Login</b></td>
+                        <td><input class="inputLogin" name='j_username' /></td></tr>
+                    <tr><td><b>Senha</b></td>
+                        <td><input class="inputLogin" type="password" name='j_password' /></td></tr>
+                    <tr><td align="right"><input type="checkbox" name="_spring_security_remember_me" /></td>
+                        <td>Entrar automaticamente</td></tr>
+                </table>
+                <br />
+                <input class="botao" type="submit" value="Entrar" />
+                <script>
+                    document.getElementById("login").j_username.value = "#{SPRING_SECURITY_LAST_USERNAME}";
+                </script>
+            </form>
+            <br />
+            <a href="/Forms/publico/recuperarSenha.jsf">Esqueci meu login e/ou senha</a> <br /><br />
+            <br />
+            <b><p:outputLabel value="Não é cadastrado?" /></b>
+            <h:form>
+                <h:commandButton class="botao" action="#{usuarioBean.novo}" value="Cadastre-se" />
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+</html>

@@ -9,8 +9,7 @@ package br.eti.sw.pontocerto.bean;
 import br.eti.sw.pontocerto.entidade.Salario;
 import br.eti.sw.pontocerto.entidade.Usuario;
 import br.eti.sw.pontocerto.negocio.SalarioRN;
-import br.eti.sw.pontocerto.negocio.UsuarioRN;
-import br.eti.sw.pontocerto.util.RNException;
+import br.eti.sw.pontocerto.util.ContextoUtil;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -39,29 +38,26 @@ public class SalarioBean {
     /**
      * Este � o objeto utilizado para manipular inser��es, edi��es e dele��es.
      */
-    private Salario salario = new Salario();
-    private Usuario usuarioVinculado;
+    private Salario salario;
     private List<Salario> lista;
 
     @PostConstruct
     public void init() {
+        SalarioRN salarioRN = new SalarioRN();
+        ContextoBean contextoBean = ContextoUtil.getContextoBean();
+        Usuario usuario = contextoBean.getUsuarioLogado();
+        this.salario = salarioRN.buscarSalarioPorUsuario(usuario);
 
+        if (this.salario == null) {
+            this.salario = new Salario();
+            this.salario.setUsuario(usuario);
+        }
     }
 
     public String salvar() {
         SalarioRN salarioRN = new SalarioRN();
-        this.salario.setUsuario(usuarioVinculado);
         salarioRN.salvar(this.salario);
-
-        UsuarioRN usuarioRN = new UsuarioRN();
-        this.usuarioVinculado.setSalario(salario);
-        try {
-            usuarioRN.salvar(usuarioVinculado);
-        } catch (RNException ex) {
-            enviaMensagemFaces(FacesMessage.SEVERITY_INFO, "Erro", ex.getMessage());
-        }
-        salario = new Salario();
-        enviaMensagemFaces(FacesMessage.SEVERITY_INFO, "Sucesso", "Salario enviado com sucesso!");
+        enviaMensagemFaces(FacesMessage.SEVERITY_INFO, "Sucesso", "Salário enviado com sucesso!");
         return "sucessoFeedback";
     }
 
@@ -80,20 +76,12 @@ public class SalarioBean {
         return this.lista;
     }
 
-    public Salario getFeedback() {
+    public Salario getSalario() {
         return salario;
     }
 
-    public void setFeedback(Salario salario) {
+    public void setSalario(Salario salario) {
         this.salario = salario;
-    }
-
-    public Usuario getUsuarioVinculado() {
-        return usuarioVinculado;
-    }
-
-    public void setWebVinculada(Usuario usuarioVinculado) {
-        this.usuarioVinculado = usuarioVinculado;
     }
 
     /**
