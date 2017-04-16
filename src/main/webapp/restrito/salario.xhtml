@@ -34,6 +34,39 @@ and open the template in the editor.
                     <f:convertNumber minFractionDigits="2" maxFractionDigits="2"/>
                 </p:inputText>
 
+                <p:outputLabel id="labelINSS" value="Taxa INSS: "
+                               style="font-weight: bold;"/>
+                <p:outputLabel value="#{salarioBean.salario.impostoINSS * 100}%"
+                               style="font-weight: bold;"/>
+
+                <p:outputLabel id="labelIRRF" value="Taxa IRRF: "
+                               style="font-weight: bold;"/>
+                <p:outputLabel value="#{salarioBean.salario.impostoIRRF * 100}%"
+                               style="font-weight: bold;"/>
+
+                <p:outputLabel id="labelDescontoINSS" value="Desconto INSS: "
+                               style="font-weight: bold;"/>
+                <p:outputLabel value="#{salarioBean.salario.salarioBase * salarioBean.salario.impostoINSS}"
+                               style="font-weight: bold;">
+                    <f:convertNumber minFractionDigits="2" maxFractionDigits="2"/>
+                </p:outputLabel>
+
+                <p:outputLabel id="labelDescontoIRRF" value="Desconto IRRF: "
+                               style="font-weight: bold;"/>
+                <p:outputLabel
+                        value="#{((salarioBean.salario.salarioBase - salarioBean.salario.salarioBase * salarioBean.salario.impostoINSS) * salarioBean.salario.impostoIRRF) - salarioBean.deducaoIRRF}"
+                        style="font-weight: bold;">
+                    <f:convertNumber minFractionDigits="2" maxFractionDigits="2"/>
+                </p:outputLabel>
+
+                <p:outputLabel id="labelTotalLiquido" value="Salário Líquido: "
+                               style="font-weight: bold;"/>
+                <p:outputLabel value="#{salarioBean.salario.salarioBase - (((salarioBean.salario.salarioBase - salarioBean.salario.salarioBase * salarioBean.salario.impostoINSS) * salarioBean.salario.impostoIRRF) - salarioBean.deducaoIRRF)
+                - (salarioBean.salario.salarioBase * salarioBean.salario.impostoINSS) - salarioBean.salario.outrosDescontos}"
+                               style="font-weight: bold;">
+                    <f:convertNumber minFractionDigits="2" maxFractionDigits="2"/>
+                </p:outputLabel>
+
             </p:panelGrid>
             <br/>
             <p:outputLabel value="Os campos com * são obrigatórios"/> <br/><br/>

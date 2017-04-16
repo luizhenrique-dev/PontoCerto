@@ -5,6 +5,7 @@
  */
 package br.eti.sw.pontocerto.entidade;
 
+import br.eti.sw.pontocerto.util.DataUtil;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -69,13 +70,13 @@ public class PontoDoDia implements Serializable {
     @Transient
     private String horaSaidaFormatada;
 
-    public String getHoraEntradaFormata() {
+    public String getHoraEntradaFormatada() {
         SimpleDateFormat s = new SimpleDateFormat("HH:mm:ss");
         horaEntradaFormatada = s.format(this.horaEntrada.getTime());
         return horaEntradaFormatada;
     }
 
-    public void setHoraEntradaFormata(String horaEntradaFormata) {
+    public void setHoraEntradaFormatada(String horaEntradaFormata) {
         this.horaEntradaFormatada = horaEntradaFormata;
     }
 
@@ -89,17 +90,17 @@ public class PontoDoDia implements Serializable {
         this.horaSaidaAlmocoFormatada = horaSaidaAlmocoFormatada;
     }
 
-    public String getHoraEntradaTardeFormata() {
+    public String getHoraEntradaTardeFormatada() {
         SimpleDateFormat s = new SimpleDateFormat("HH:mm:ss");
         horaEntradaTardeFormatada = s.format(this.horaEntradaTarde.getTime());
         return horaEntradaTardeFormatada;
     }
 
-    public void setHoraEntradaTardeFormata(String horaEntradaTardeFormata) {
+    public void setHoraEntradaTardeFormatada(String horaEntradaTardeFormata) {
         this.horaEntradaTardeFormatada = horaEntradaTardeFormata;
     }
 
-    public String getHoraSaidaFormata() {
+    public String getHoraSaidaFormatada() {
         SimpleDateFormat s = new SimpleDateFormat("HH:mm:ss");
         horaSaidaFormatada = s.format(this.horaSaida.getTime());
         return horaSaidaFormatada;
@@ -166,6 +167,10 @@ public class PontoDoDia implements Serializable {
 
     public Date getDataRealizacao() {
         return dataRealizacao;
+    }
+
+    public String getDataRealizacaoFormatada() {
+        return DataUtil.converterData(dataRealizacao, DataUtil.DataFormat.DDMMAAAA);
     }
 
     public void setDataRealizacao(Date dataRealizacao) {

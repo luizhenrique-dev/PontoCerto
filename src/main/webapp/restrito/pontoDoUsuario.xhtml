@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/templates/principal.xhtml">
+    <ui:define name="titulo">
+        Detalhes do Ponto
+    </ui:define>
+    <ui:define name="corpo">
+        <h:form id="formPontoDoDia">
+            <p:growl id="msgs" showDetail="true" life="6000" autoUpdate="true"/>
+            <p:messages id="mensagens" showDetail="true" autoUpdate="true" closable="true"/>
+            <h:inputHidden value="#{pontoDoDiaBean.pontoDoDia.id}"/>
+
+            <h3>Dia #{pontoDoDiaBean.pontoDoDia.dataRealizacaoFormatada}</h3>
+            <p:panelGrid columns="2" columnClasses="colunaDireita,colunaEsquerda">
+                <p:outputLabel id="labelHorarioEntrada" value="Entrada: " for="horarioEntrada"
+                               style="font-weight: bold;"/>
+                <p:calendar id="horarioEntrada" value="#{pontoDoDiaBean.horaEntrada}" pattern="HH:mm:ss"
+                            timeOnly="true"/>
+
+                <p:outputLabel id="labelHorarioSaidaAlmoco" value="Entrada: " for="horarioSaidaAlmoco"
+                               style="font-weight: bold;"/>
+                <p:calendar id="horarioSaidaAlmoco" value="#{pontoDoDiaBean.horaSaidaAlmoco}" pattern="HH:mm:ss"
+                            timeOnly="true"/>
+
+                <p:outputLabel id="labelHorarioEntradaTarde" value="Entrada: " for="horarioEntradaTarde"
+                               style="font-weight: bold;"/>
+                <p:calendar id="horarioEntradaTarde" value="#{pontoDoDiaBean.horaEntradaTarde}" pattern="HH:mm:ss"
+                            timeOnly="true"/>
+
+                <p:outputLabel id="labelHorarioSaida" value="Entrada: " for="horarioSaida"
+                               style="font-weight: bold;"/>
+                <p:calendar id="horarioSaida" value="#{pontoDoDiaBean.horaSaida}" pattern="HH:mm:ss" timeOnly="true"/>
+            </p:panelGrid>
+            <br/>
+            <p:commandButton value="Salvar" actionListener="#{pontoDoDiaBean.salvar}" icon="ui-icon-disk"
+                             update="mensagens"/>
+
+        </h:form>
+
+        <h:form>
+            <br/>
+            <p:commandButton value="Voltar" action="/restrito/marcarPonto" icon="ui-icon-arrowreturnthick-1-w"/>
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>

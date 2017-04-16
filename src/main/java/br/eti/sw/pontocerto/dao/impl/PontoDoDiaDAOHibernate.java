@@ -48,7 +48,7 @@ public class PontoDoDiaDAOHibernate implements PontoDoDiaDAO {
 
     @Override
     public List<PontoDoDia> listar(Usuario usuario) {
-        String hql = "from PontoDoDia ponto where ponto.usuario = :usuario";
+        String hql = "from PontoDoDia ponto where ponto.usuario = :usuario ORDER BY ponto.dataRealizacao DESC";
         Query consulta = this.session.createQuery(hql);
         consulta.setInteger("usuario", usuario.getId());
         return consulta.list();

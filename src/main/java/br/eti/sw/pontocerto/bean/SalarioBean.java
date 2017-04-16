@@ -17,6 +17,7 @@ import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -40,6 +41,7 @@ public class SalarioBean {
      */
     private Salario salario;
     private List<Salario> lista;
+    private BigDecimal deducaoIRRF;
 
     @PostConstruct
     public void init() {
@@ -76,12 +78,27 @@ public class SalarioBean {
         return this.lista;
     }
 
+    public BigDecimal obtenhaDeducaoIRRF() {
+        SalarioRN salarioRN = new SalarioRN();
+        return salarioRN.obtenhaDeducaoIRRF(this.salario);
+    }
+
     public Salario getSalario() {
         return salario;
     }
 
     public void setSalario(Salario salario) {
         this.salario = salario;
+    }
+
+    public BigDecimal getDeducaoIRRF() {
+        SalarioRN salarioRN = new SalarioRN();
+        deducaoIRRF =  salarioRN.obtenhaDeducaoIRRF(this.salario);
+        return deducaoIRRF;
+    }
+
+    public void setDeducaoIRRF(BigDecimal deducaoIRRF) {
+        this.deducaoIRRF = deducaoIRRF;
     }
 
     /**

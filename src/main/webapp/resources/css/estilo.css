@@ -1,0 +1,234 @@
+.colunaDireita {
+    text-align: right;
+}
+
+.colunaDireitaNegrito {
+    text-align: right;
+    font-weight: bold;
+}
+
+.colunaEsquerda {
+    text-align: left;
+}
+
+.colunaEsquerdaNegrito {
+    font-weight: bold;
+    text-align: left;
+}
+
+.colunaCentro {
+    font-weight: bold;
+    text-align: center;
+}
+
+.colunaExemplos {
+    font-style: italic;
+    text-align: left;
+}
+
+.colunaCentroPlano {
+    font-weight: bold;
+    text-align: center;
+}
+
+.painel {
+    line-height: 150%;
+    border: 1px solid;
+    border-color: #919191;
+    color: #646264;
+}
+
+.negrito {
+    font-weight: bold;
+    font-size: medium;
+}
+
+.ui-top, .ui-top .ui-layout, .ui-top .ui-layout-bd, .ui-top .ui-layout-unit {
+    background-color: white;
+}
+
+.ui-layout-unit-content {
+    background-color: white;
+    color: black;
+    font-family: "Lucida Grande", "Lucida Sans Unicode", Arial, sans-serif;
+}
+
+.ui-menu {
+
+}
+
+.ui-menu-unit {
+    background-color: black;
+}
+
+body {
+    background: url('/Forms/resources/imagens/pattern_cinza.jpg') repeat !important;
+    font-size: 12px;
+}
+
+.layoutPrincipal {
+    min-width: 1080px;
+    max-width: 1080px;
+    min-height: 850px;
+    max-height: 850px;
+}
+
+.botaoConfirmar {
+    font-size: 14px;
+    color: #ffffff;
+    padding: 10px 20px;
+    background: -moz-linear-gradient(
+            top,
+            #ffd9aa 0%,
+            #233458 50%,
+            #233458);
+    background: -webkit-gradient(
+            linear, left top, left bottom,
+            from(#233458),
+            color-stop(0.50, #233458),
+            to(#233458));
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    border: 1px solid #233458;
+    -moz-box-shadow: 0px 1px 3px rgba(125, 125, 125, 0.5),
+    inset 0px 0px 1px rgba(255, 255, 255, 0.6);
+    -webkit-box-shadow: 0px 1px 3px rgba(125, 125, 125, 0.5),
+    inset 0px 0px 1px rgba(255, 255, 255, 0.6);
+    box-shadow: 0px 1px 3px rgba(125, 125, 125, 0.5),
+    inset 0px 0px 1px rgba(255, 255, 255, 0.6);
+    text-shadow: 0px -1px 0px rgba(000, 000, 000, 0),
+    0px 1px 0px rgba(255, 255, 255, 0.2);
+}
+
+.botaoNegar {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #ffffff;
+    padding: 10px 20px;
+    background: -moz-linear-gradient(
+            top,
+            #ff4242 0%,
+            #660000);
+    background: -webkit-gradient(
+            linear, left top, left bottom,
+            from(#ff4242),
+            to(#660000));
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    border: 1px solid #400101;
+    -moz-box-shadow: 0px 1px 3px rgba(000, 000, 000, 0.5),
+    inset 0px 0px 2px rgba(255, 255, 255, 1);
+    -webkit-box-shadow: 0px 1px 3px rgba(000, 000, 000, 0.5),
+    inset 0px 0px 2px rgba(255, 255, 255, 1);
+    box-shadow: 0px 1px 3px rgba(000, 000, 000, 0.5),
+    inset 0px 0px 2px rgba(255, 255, 255, 1);
+    text-shadow: 0px -1px 0px rgba(000, 000, 000, 0.4),
+    0px 1px 0px rgba(255, 255, 255, 0.3);
+}
+
+.botao {
+    font-size: 14px;
+    color: #ffffff;
+    padding: 10px 20px;
+    background: -moz-linear-gradient(
+            top,
+            #ffd9aa 0%,
+            #233458 50%,
+            #233458);
+    background: -webkit-gradient(
+            linear, left top, left bottom,
+            from(#233458),
+            color-stop(0.50, #233458),
+            to(#233458));
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    border: 1px solid #233458;
+    -moz-box-shadow: 0px 1px 3px rgba(125, 125, 125, 0.5),
+    inset 0px 0px 1px rgba(255, 255, 255, 0.6);
+    -webkit-box-shadow: 0px 1px 3px rgba(125, 125, 125, 0.5),
+    inset 0px 0px 1px rgba(255, 255, 255, 0.6);
+    box-shadow: 0px 1px 3px rgba(125, 125, 125, 0.5),
+    inset 0px 0px 1px rgba(255, 255, 255, 0.6);
+    text-shadow: 0px -1px 0px rgba(000, 000, 000, 0),
+    0px 1px 0px rgba(255, 255, 255, 0.2);
+}
+
+.botao:hover {
+    color: black;
+}
+
+.inputLogin {
+    display: block;
+    margin: 0px auto 5px;
+    border-radius: 5px;
+    width: 75%;
+    padding: 5px 10px 5px 5px;
+    border: none;
+    box-shadow: inset 0px 1px 5px #272727;
+    -webkit-transition: 0.5s ease;
+    -moz-transition: 0.5s ease;
+    -o-transition: 0.5s ease;
+    -ms-transition: 0.5s ease;
+    transition: 0.5s ease;
+}
+
+.perfil {
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+.campoDestaque {
+    color: #000080;
+    font-weight: bold;
+    text-align: left;
+}
+
+#boasVindas {
+    position: absolute;
+    margin-left: 215px;
+}
+
+#titulo {
+    padding-left: 100px;
+    font-size: 20pt;
+    font-variant: small-caps;
+    font-weight: bold;
+}
+
+#logo {
+    text-align: right;
+    float: right;
+}
+
+.calendario {
+    font-size: 17px !important;
+}
+
+/*.ui-widget,.ui-widget .ui-widget {
+    font-size: 12px !important;
+}*/
+
+.sucesso {
+    /*    color: black;
+        background-color: #65C76A;*/
+}
+
+.negrito {
+    font-weight: bold;
+    font-size: small;
+}
+
+.textoJustificado {
+    line-height: 150%;
+    text-align: justify;
+}
+
+.logoForms {
+    font-weight: bold;
+    font-size: 21px;
+    /*    color: #E59400;*/
+    color: white;
+}

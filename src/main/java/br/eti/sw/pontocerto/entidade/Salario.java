@@ -17,10 +17,12 @@ import java.math.BigDecimal;
 public class Salario implements Serializable {
 
     private static final long serialVersionUID = 5434514464269156251L;
-    private static final BigDecimal ALIQUOTA_INSS_11 = BigDecimal.valueOf(0.11);
-    private static final BigDecimal ALIQUOTA_INSS_9 = BigDecimal.valueOf(0.09);
-    private static final BigDecimal ALIQUOTA_IRRF_15 = BigDecimal.valueOf(0.15);
-    private static final BigDecimal ALIQUOTA_IRRF_22 = BigDecimal.valueOf(0.225);
+    public static final BigDecimal ALIQUOTA_INSS_11 = BigDecimal.valueOf(0.11);
+    public static final BigDecimal ALIQUOTA_INSS_9 = BigDecimal.valueOf(0.09);
+    public static final BigDecimal ALIQUOTA_IRRF_15 = BigDecimal.valueOf(0.15);
+    public static final BigDecimal ALIQUOTA_IRRF_22 = BigDecimal.valueOf(0.225);
+    public static final BigDecimal VALOR_MAX_TAXA_15porc_IRRF = new BigDecimal("3751.05");
+    public static final BigDecimal VALOR_MAX_TAXA_9porc_INSS = new BigDecimal("2765.66");
 
     @Id
     @GeneratedValue
@@ -62,7 +64,7 @@ public class Salario implements Serializable {
     }
 
     public BigDecimal getSalarioBase() {
-        return salarioBase;
+        return salarioBase.setScale(2);
     }
 
     public void setSalarioBase(BigDecimal salarioBase) {
@@ -70,7 +72,7 @@ public class Salario implements Serializable {
     }
 
     public BigDecimal getImpostoIRRF() {
-        if ((this.salarioBase.subtract(outrosDescontos)).compareTo(new BigDecimal("3751.05")) > 1) {
+        if ((this.salarioBase.subtract(this.salarioBase.multiply(this.impostoINSS))).compareTo(VALOR_MAX_TAXA_15porc_IRRF) == 1) {
             return Salario.ALIQUOTA_IRRF_22;
         } else {
             return Salario.ALIQUOTA_IRRF_15;
@@ -82,7 +84,7 @@ public class Salario implements Serializable {
     }
 
     public BigDecimal getImpostoINSS() {
-        if ((this.salarioBase.subtract(outrosDescontos)).compareTo(new BigDecimal("2765.66")) > 1) {
+        if ((this.salarioBase.subtract(outrosDescontos)).compareTo(VALOR_MAX_TAXA_9porc_INSS) == 1) {
             return Salario.ALIQUOTA_INSS_11;
         } else {
             return Salario.ALIQUOTA_INSS_9;

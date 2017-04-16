@@ -20,6 +20,8 @@ import java.util.List;
 public class SalarioRN {
 
     private SalarioDAO salarioDAO;
+    private BigDecimal deducaoIRRF_15 = new BigDecimal("354.80");
+    private BigDecimal deducaoIRRF_22 = new BigDecimal("636.13");
 
     public SalarioRN() {
         this.salarioDAO = DAOFactory.criarSalarioDAO();
@@ -51,9 +53,18 @@ public class SalarioRN {
 
     private void obtemValoresAliquitas(Salario salario) {
         BigDecimal aliquotaINSS = salario.getImpostoINSS();
-        BigDecimal aliquotaIRRF = salario.getImpostoIRRF();
         salario.setImpostoINSS(aliquotaINSS);
+        BigDecimal aliquotaIRRF = salario.getImpostoIRRF();
         salario.setImpostoIRRF(aliquotaIRRF);
+    }
+
+    public BigDecimal obtenhaDeducaoIRRF(Salario salario) {
+        if (salario.getImpostoIRRF() == Salario.ALIQUOTA_IRRF_15)
+            return deducaoIRRF_15;
+        else if (salario.getImpostoIRRF() == Salario.ALIQUOTA_IRRF_22)
+            return deducaoIRRF_22;
+
+        return deducaoIRRF_15;
     }
 
     public Salario buscarSalarioPorUsuario(Usuario usuario) {

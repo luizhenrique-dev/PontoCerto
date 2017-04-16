@@ -18,6 +18,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -41,6 +42,10 @@ public class PontoDoDiaBean {
      */
     private PontoDoDia pontoDoDia;
     private List<PontoDoDia> lista;
+    private Date horaEntrada;
+    private Date horaSaidaAlmoco;
+    private Date horaEntradaTarde;
+    private Date horaSaida;
 
     @PostConstruct
     public void init() {
@@ -53,6 +58,11 @@ public class PontoDoDiaBean {
         if (pontoDoDia == null) {
             pontoDoDia = new PontoDoDia();
             this.pontoDoDia.setUsuario(usuario);
+        } else {
+            horaEntrada = this.pontoDoDia.getHoraEntrada().getTime();
+            horaSaidaAlmoco = this.pontoDoDia.getHoraSaidaAlmoco().getTime();
+            horaEntradaTarde = this.pontoDoDia.getHoraEntradaTarde().getTime();
+            horaSaida = this.pontoDoDia.getHoraSaida().getTime();
         }
     }
 
@@ -102,6 +112,38 @@ public class PontoDoDiaBean {
         this.pontoDoDia.setHoraSaida(Calendar.getInstance());
         salvar();
         this.lista = null;
+    }
+
+    public Date getHoraEntrada() {
+        return horaEntrada;
+    }
+
+    public void setHoraEntrada(Date horaEntrada) {
+        this.horaEntrada = horaEntrada;
+    }
+
+    public Date getHoraSaidaAlmoco() {
+        return horaSaidaAlmoco;
+    }
+
+    public void setHoraSaidaAlmoco(Date horaSaidaAlmoco) {
+        this.horaSaidaAlmoco = horaSaidaAlmoco;
+    }
+
+    public Date getHoraEntradaTarde() {
+        return horaEntradaTarde;
+    }
+
+    public void setHoraEntradaTarde(Date horaEntradaTarde) {
+        this.horaEntradaTarde = horaEntradaTarde;
+    }
+
+    public Date getHoraSaida() {
+        return horaSaida;
+    }
+
+    public void setHoraSaida(Date horaSaida) {
+        this.horaSaida = horaSaida;
     }
 
     public PontoDoDia getPontoDoDia() {

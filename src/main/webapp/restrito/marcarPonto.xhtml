@@ -48,18 +48,18 @@ and open the template in the editor.
                          reflow="true"
                          selection="#{pontoDoDiaBean.pontoDoDia}" rowKey="#{pontoDoDia.id}"
                          paginator="true"
-                         rows="20"
+                         rows="6"
                          resizableColumns="true"
                          liveResize="true"
                          emptyMessage="Nenhum registro encontrado."
 
             >
                 <f:facet name="header">
-                    Horários de Hoje
+                   Últimos Horários
                 </f:facet>
 
                 <p:column headerText="Entrada" sortBy="#{pontoDoDia.horaEntrada}">
-                    <h:outputText value="#{pontoDoDia.horaEntradaFormata}" />
+                    <h:outputText value="#{pontoDoDia.horaEntradaFormatada}" />
                 </p:column>
 
                 <p:column headerText="Saída para Almoço">
@@ -67,17 +67,28 @@ and open the template in the editor.
                 </p:column>
 
                 <p:column headerText="Entrada da Tarde">
-                    <h:outputText value="#{pontoDoDia.horaEntradaTardeFormata}"/>
+                    <h:outputText value="#{pontoDoDia.horaEntradaTardeFormatada}"/>
                 </p:column>
 
                 <p:column headerText="Saída">
-                    <h:outputText value="#{pontoDoDia.horaSaidaFormata}"/>
+                    <h:outputText value="#{pontoDoDia.horaSaidaFormatada}"/>
                 </p:column>
 
                 <p:column headerText="Dia">
                     <h:outputText value="#{pontoDoDia.dataRealizacao}" >
                         <f:convertDateTime pattern="dd/MM/yyyy" />
                     </h:outputText>
+                </p:column>
+
+                <p:column style="width: 50px">
+                    <div style="width: 100%; text-align: center;">
+                        <p:commandLink action="/restrito/pontoDoUsuario"
+                                       update="formPontoDoDia:tablePontos, :formPontoDoDia:mensagens">
+                            <h:graphicImage library="imagens" name="detalhes24.png" style="border:0"/>
+                            <f:setPropertyActionListener target="#{pontoDoDiaBean.pontoDoDia}"
+                                                         value="#{pontoDoDia}"/>
+                        </p:commandLink>
+                    </div>
                 </p:column>
 
             </p:dataTable>
